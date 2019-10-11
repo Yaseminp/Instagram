@@ -7,7 +7,7 @@ module.exports = function validateProfileInput(data) {
 
   data.handle = !isEmpty(data.handle) ? data.handle : '';
   data.email = !isEmpty(data.email) ? data.email : '';
-  data.mobilephone = !isEmpty(data.mobilephone) ? data.mobilephone : '';
+  
 
 
   if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
@@ -18,10 +18,9 @@ module.exports = function validateProfileInput(data) {
     errors.handle = 'Profile handle is required';
   }
 
-  //if (Validator.isEmpty(data.email)) {
-    //errors.email = 'Email field is required';
-  //}
-
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'Email field is required';
+  }
 
   if (!isEmpty(data.website)) {
     if (!Validator.isURL(data.website)) {
@@ -30,8 +29,6 @@ module.exports = function validateProfileInput(data) {
   }
 
 
-
- 
   return {
     errors,
     isValid: isEmpty(errors)

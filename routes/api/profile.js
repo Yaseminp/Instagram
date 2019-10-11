@@ -114,10 +114,9 @@ router.post(
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.website) profileFields.website = req.body.website;
     if (req.body.bio) profileFields.bio = req.body.bio;
-    //information
-    if (req.body.email) profileFields.information.email = req.body.email;
-    if (req.body.mobilephone) profileFields.information.mobilephone = req.body.mobilephone;
-    if (req.body.gender) profileFields.information.gender = req.body.gender;
+    if (req.body.email) profileFields.email = req.body.email;
+    if (req.body.mobilephone) profileFields.mobilephone = req.body.mobilephone;
+    if (req.body.gender) profileFields.gender = req.body.gender;
 
     Profile.findOne({ user: req.user.id })
       .then(profile => {

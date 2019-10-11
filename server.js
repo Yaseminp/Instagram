@@ -33,4 +33,3 @@ app.use('/api/posts', posts);
 
 const port = 7200;
 app.listen(port, () => console.log(`Server running on port ${port}`));
-

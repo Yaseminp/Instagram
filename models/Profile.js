@@ -18,17 +18,16 @@ const ProfileSchema = new Schema({
   bio: {
     type: String
   },
-  information: {
-      email: {
-        type: String,
-      },
-      mobilephone: {
-        type: String,
-      },
-      gender: {
-        type: String
-      },
+  email: {
+    type: String,
   },
+   mobilephone: {
+      type: Number,
+  },
+   gender: {
+      type: String
+  },
+  
   
   date: {
     type: Date,
