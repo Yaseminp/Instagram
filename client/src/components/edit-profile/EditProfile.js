@@ -276,7 +276,7 @@ class CreateProfile extends Component {
                     }}
                     className="btn btn-light"
                   >
-                    Add Social Network Links
+                    Add Information
                   </button>
                   <span className="text-muted">Optional</span>
                 </div>

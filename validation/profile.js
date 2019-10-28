@@ -7,7 +7,8 @@ module.exports = function validateProfileInput(data) {
 
   data.handle = !isEmpty(data.handle) ? data.handle : '';
   data.email = !isEmpty(data.email) ? data.email : '';
-  
+  data.mobilephone = !isEmpty(data.mobilephone) ? data.mobilephone : '';
+  data.gender = !isEmpty(data.gender) ? data.gender : '';
 
 
   if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
