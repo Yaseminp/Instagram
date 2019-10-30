@@ -21,11 +21,8 @@ const ProfileSchema = new Schema({
   email: {
     type: String,
   },
-   mobilephone: {
-      type: Number,
-  },
-   gender: {
-      type: String
+   location: {
+      type: String,
   },
   
   

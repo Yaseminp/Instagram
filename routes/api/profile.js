@@ -96,17 +96,10 @@ router.get('/user/:user_id', (req, res) => {
 // @route   POST api/profile
 // @desc    Create or edit user profile
 // @access  Private
-router.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
+router.post('/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateProfileInput(req.body);
-    // Check Validation
-    if (!isValid) {
-      // Return any errors with 400 status
-      return res.status(400).json(errors);
-    }
-
+    const errors = {};
+  
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -114,15 +107,7 @@ router.post(
     if (req.body.website) profileFields.website = req.body.website;
     if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.location) profileFields.location = req.body.location;
-
-    //Information
-
-    profileFields.information = {};
-    if (req.body.email) profileFields.information.email = req.body.email;
-    if (req.body.mobilephone) profileFields.information.mobilephone = req.body.mobilephone;
-    if (req.body.gender) profileFields.information.gender = req.body.gender;
-
-
+    
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         if (profile) {
