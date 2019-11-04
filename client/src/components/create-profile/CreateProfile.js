@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import InputGroup from '../common/InputGroup';
-import { createProfile } from '../../actions/profileActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import TextFieldGroup from "../common/TextFieldGroup";
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
+import InputGroup from "../common/InputGroup";
+import { createProfile } from "../../actions/profileActions";
 
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayInformationInputs: false,
+      displaySocialInputs: false,
       handle: '',
       website: '',
       location: '',
       bio: '',
-      email:'',
+      facebook: '',
+      youtube: '',
       errors: {}
     };
 
@@ -38,9 +39,9 @@ class CreateProfile extends Component {
       website: this.state.website,
       location: this.state.location,
       bio: this.state.bio,
-      email: this.state.email
+      facebook: this.state.facebook,
+      youtube: this.state.youtube
     };
-    
 
     this.props.createProfile(profileData, this.props.history);
   }
@@ -50,25 +51,32 @@ class CreateProfile extends Component {
   }
 
   render() {
-    const { errors, displayInformationInputs } = this.state;
+    const { errors, displaySocialInputs } = this.state;
 
-    let InformationInputs;
+    let socialInputs;
 
-    if (displayInformationInputs) {
-      InformationInputs = (
+    if (displaySocialInputs) {
+      socialInputs = (
         <div>
           <InputGroup
-            placeholder="Email"
-            name="email"
-            icon="fab fa-email"
-            value={this.state.email}
+            placeholder="YouTube Channel URL"
+            name="youtube"
+            icon="fab fa-youtube"
+            value={this.state.youtube}
             onChange={this.onChange}
-            error={errors.email}
+            error={errors.youtube}
           />
-          </div>          
+          <InputGroup
+            placeholder="Facebook Page URL"
+            name="facebook"
+            icon="fab fa-facebook"
+            value={this.state.facebook}
+            onChange={this.onChange}
+            error={errors.facebook}
+          />
+        </div>
       );
     }
-
 
     return (
       <div className="create-profile">
@@ -106,7 +114,7 @@ class CreateProfile extends Component {
                   error={errors.location}
                   info="City or city & state suggested (eg. Boston, MA)"
                 />
-               
+
                 <TextAreaFieldGroup
                   placeholder="Short Bio"
                   name="bio"
@@ -121,7 +129,7 @@ class CreateProfile extends Component {
                     type="button"
                     onClick={() => {
                       this.setState(prevState => ({
-                        displayInformationInputs: !prevState.displayInformationInputs
+                        displaySocialInputs: !prevState.displaySocialInputs
                       }));
                     }}
                     className="btn btn-light"
@@ -130,7 +138,7 @@ class CreateProfile extends Component {
                   </button>
                   <span className="text-muted">Optional</span>
                 </div>
-                {InformationInputs}
+                {socialInputs}
                 <input
                   type="submit"
                   value="Submit"
@@ -147,10 +155,7 @@ class CreateProfile extends Component {
 
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ])
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 };
 
 const mapStateToProps = state => ({
@@ -158,6 +163,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile })(
-  withRouter(CreateProfile)
-);
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));

@@ -8,7 +8,7 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      pictureUrl:'',
       errors: {}
     };
 
@@ -28,13 +28,13 @@ class PostForm extends Component {
     const { user } = this.props.auth;
 
     const newPost = {
-      text: this.state.text,
+      pictureUrl: this.state.pictureUrl,
       name: user.name,
       avatar: user.avatar
     };
 
     this.props.addPost(newPost);
-    this.setState({ text: '' });
+    this.setState({ pictureUrl: "" });
   }
 
   onChange(e) {
@@ -48,15 +48,15 @@ class PostForm extends Component {
       <div className="post-form mb-3">
         <div className="card card-info">
           <div className="card-header bg-info text-white">Say Something...</div>
-          <div className="card-body">
+            <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup
-                  placeholder="Create a post"
-                  name="text"
-                  value={this.state.text}
+                  placeholder="Add Url for photo"
+                  name="pictureUrl"
+                  value={this.state.pictureUrl}  
                   onChange={this.onChange}
-                  error={errors.text}
+                  error={errors.pictureUrl}
                 />
               </div>
               <button type="submit" className="btn btn-dark">

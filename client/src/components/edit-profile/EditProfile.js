@@ -17,7 +17,8 @@ class CreateProfile extends Component {
           website: '',
           location: '',
           bio: '',
-          email: '',
+          youtube: '',
+          facebook: '',
           errors: {}
         };
 
@@ -42,6 +43,9 @@ class CreateProfile extends Component {
       profile.website = !isEmpty(profile.website) ? profile.website : '';
       profile.location = !isEmpty(profile.location) ? profile.location : '';
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+      profile.social = !isEmpty(profile.social) ? profile.social : {};
+      profile.facebook = !isEmpty(profile.social.facebook) ? profile.social.facebook: '';
+      profile.youtube = !isEmpty(profile.social.youtube) ? profile.social.youtube: '';
       
 
       // Set component fields state
@@ -50,6 +54,8 @@ class CreateProfile extends Component {
         website: profile.website,
         location: profile.location,
         bio: profile.bio,
+        facebook: profile.facebook,
+        youtube: profile.youtube
       });
     }
   }
@@ -62,6 +68,8 @@ class CreateProfile extends Component {
       website: this.state.website,
       location: this.state.location,
       bio: this.state.bio,
+      facebook: this.state.facebook,
+      youtube: this.state.youtube
     };
 
     this.props.createProfile(profileData, this.props.history);
@@ -72,22 +80,30 @@ class CreateProfile extends Component {
   }
 
   render() {
-    const { errors, displayInformationInputs } = this.state;
+    const { errors, displaySocialInputs } = this.state;
 
-    let informationInputs;
+    let socialInputs;
 
-    if (displayInformationInputs) {
-      informationInputs = (
+    if (displaySocialInputs) {
+      socialInputs = (
         <div>
           <InputGroup
-            placeholder="email"
-            name="email"
-            icon="fab fa-email"
-            value={this.state.email}
+            placeholder="YouTube Channel URL"
+            name="youtube"
+            icon="fab fa-youtube"
+            value={this.state.youtube}
             onChange={this.onChange}
-            error={errors.email}
+            error={errors.youtube}
           />
-
+          <InputGroup
+            placeholder="Facebook Page URL"
+            name="facebook"
+            icon="fab fa-facebook"
+            value={this.state.facebook}
+            onChange={this.onChange}
+            error={errors.facebook}
+          />
+        
         </div>
       );
     }
@@ -97,7 +113,7 @@ class CreateProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
+              <Link to="/profile" className="btn btn-light">
                 Go Back
               </Link>
               <h1 className="display-4 text-center">Edit Profile</h1>
@@ -143,16 +159,16 @@ class CreateProfile extends Component {
                     type="button"
                     onClick={() => {
                       this.setState(prevState => ({
-                        displayInformationInputs: !prevState.displayInformationInputs
+                        displaySocialInputs: !prevState.displayInformationInputs
                       }));
                     }}
                     className="btn btn-light"
                   >
-                    Add Information
+                    Add Social Network Links
                   </button>
                   <span className="text-muted">Optional</span>
                 </div>
-                {informationInputs}
+                {socialInputs}
                 <input
                   type="submit"
                   value="Submit"

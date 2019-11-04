@@ -19,10 +19,16 @@ const ProfileSchema = new Schema({
     type: String
   },
   email: {
-    type: String,
+    type: String
   },
    location: {
-      type: String,
+      type: String
+  },
+  youtube: {
+    type: String
+  },
+  facebook: {
+    type:String
   },
   
   

@@ -10,6 +10,7 @@ const User = require('../../models/User');
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
 
+
 // @route   GET api/profile
 // @desc    Get current users profile
 // @access  Private
@@ -54,10 +55,10 @@ router.get('/all', (req, res) => {
 // @desc    Get profile by handle
 // @access  Public
 
-router.get('/handle/:handle', (req, res) => {
+router.get('/handle/:h', (req, res) => {
   const errors = {};
 
-  Profile.findOne({ handle: req.params.handle })
+  Profile.findOne({ handle: req.params.h })
     .populate('user', ['name', 'avatar'])
     .then(profile => {
       if (!profile) {
@@ -106,16 +107,23 @@ router.post(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-  
+
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.website) profileFields.website = req.body.website;
-    if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.location) profileFields.location = req.body.location;
+    if (req.body.bio) profileFields.bio = req.body.bio;
     
-    Profile.findOne({ user: req.user.id })
+    //Social
+    profileFields.social = {};
+    if (req.body.youtube)
+      profileFields.social.youtube = req.body.youtube;
+    if (req.body.facebook)
+      profileFields.social.facebook = req.body.facebook;
+    
+      Profile.findOne({ user: req.user.id })
       .then(profile => {
         if (profile) {
           // Update
@@ -125,6 +133,7 @@ router.post(
             { new: true }
           ).then(profile => res.json(profile));
         } else {
+          // Create
 
           // Check if handle exists
           Profile.findOne({ handle: profileFields.handle })
@@ -142,7 +151,6 @@ router.post(
       });
   }
 );
-
 
 // @route   DELETE api/profile
 // @desc    Delete user and profile

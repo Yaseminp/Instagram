@@ -20,34 +20,48 @@ class ProfileHeader extends Component {
             </div>
             <div className="text-center">
               <h1 className="display-4 text-center">{profile.user.name}</h1>
-              <p className="lead text-center">
-              {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
-              <p>
-                {isEmpty(profile.website) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.website}
-                    target="blank"
-                  >
-                    <i className="fas fa-globe fa-2x" />
-                  </a>
-                )}
+              
+                {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
+                <p>
+                  {isEmpty(profile.website) ? null : (
+                    <a
+                      className="text-white p-2"
+                      href={profile.website}
+                      target="blank"
+                    >
+                      <i className="fas fa-globe fa-2x" />
+                    </a>
+                  )}
 
-                {isEmpty(profile.information && profile.information.email) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.information.email}
-                    target="blank"
-                  >
-                    <i className="fab fa-email fa-2x" />
-                  </a>
-                )}
-              </p>
-            </p>
-         </div>
-       </div>
-     </div>
-  </div>
+                  {isEmpty(
+                    profile.social && profile.social.facebook
+                  ) ? null : (
+                    <a
+                      className="text-white p-2"
+                      href={profile.information.facebook}
+                      target="blank"
+                    >
+                      <i className="fab fa-facebook fa-2x" />
+                    </a>
+                  )}
+
+                  {isEmpty(
+                    profile.social && profile.social.youtube
+                  ) ? null : (
+                      <a
+                        className="text-white p-2"
+                        href={profile.information.youtube}
+                        target="blank"
+                      >
+                        <i className="fab fa-youtube fa-2x" />
+                      </a>
+                    )}
+                </p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
